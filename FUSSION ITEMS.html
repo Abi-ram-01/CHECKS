@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion Chocolates</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #8ec9d7;
+            --secondary-color: #bc7979;
+            --accent-color: #f05817;
+            --dark-color: #333;
+            --light-color: #fff;
+            --background-light: #f5f5f5;
+            --success-color: #28a745;
+            --success-hover: #218838;
+            --card-bg: #fff;
+            --section-bg: #287abe;
+            --header-bg: #7ec9e4;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+        
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--header-bg);
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-link {
+            margin-left: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-link:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            flex-grow: 1;
+            justify-content: center;
+        }
+        
+        .header a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            background-color: var(--dark-color);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .header a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cart-link {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            background: none !important;
+        }
+        
+        .cart-symbol {
+            font-size: 1.5rem;
+            margin-right: 5px;
+        }
+        
+        .cart-text {
+            font-size: 1rem;
+        }
+        
+        /* Banner Styles */
+        .banner {
+            width: 100%;
+            height: 400px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('banner-image.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        .banner h1 {
+            color: var(--light-color);
+            font-size: 4.5rem;
+            font-weight: bold;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding-top: 30px;
+            padding-bottom: 60px;
+        }
+        
+        /* Section Styles */
+        .section {
+            margin: 40px auto;
+            padding: 30px;
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Filter and Sort Section */
+        .filter-sort-section {
+            background-color: var(--light-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-sort-section label {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        
+        .filter-sort-section select {
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background-color: var(--light-color);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-sort-section select:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(240, 88, 23, 0.2);
+        }
+        
+        .filter-sort-section select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(240, 88, 23, 0.3);
+        }
+        
+        /* Chocolate Container Styles */
+        .chocolate-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        /* Chocolate Item Styles */
+        .chocolate-item {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--card-bg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chocolate-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+        
+        .chocolate-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .chocolate-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .chocolate-item p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .chocolate-item button {
+            background-color: var(--success-color);
+            color: var(--light-color);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .chocolate-item button:hover {
+            background-color: var(--success-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .chocolate-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+        
+        .chocolate-item:hover::before {
+            transform: scaleX(1);
+        }
+        
+        /* Badge for Special Items */
+        .special-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .chocolate-container {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .banner h1 {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 10px 0;
+                position: relative;
+            }
+            
+            .logo-link {
+                margin: 10px 0;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                padding: 0 20px;
+            }
+            
+            .header a {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .cart-link {
+                margin: 10px 0;
+            }
+            
+            .banner {
+                height: 300px;
+                margin-top: 150px;
+            }
+            
+            .banner h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .filter-sort-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-sort-section label {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .banner h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .chocolate-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .chocolate-item {
+                max-width: 100%;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <a href="home.html" class="logo-link">
+            <img src="WhatsApp Image 2025-01-21 at 19.02.54_fc26e09e.jpg" alt="Fusion Chocolates Logo" class="logo">
+        </a>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="F1.html">FUSSION</a>
+            <a href="luex collection.HTML">LUEX</a>
+            <a href="about.html">About Us</a>
+            <a href="about.html">Contact Us</a>
+        </div>
+        <a href="cart.html" class="cart-link">
+            <span class="cart-symbol">🛒</span>
+            <span class="cart-text">Cart</span>
+        </a>
+        <a href="note.html" class="cart-link" style="margin-left:10px;">
+            <span class="cart-symbol">📝</span>
+            <span class="cart-text">Note</span>
+        </a>
+    </div>
+    
+    <div class="banner">
+        <h1 class="fade-in pulse">Fusion Chocolates</h1>
+    </div>
+
+    <div class="main-content">
+        <!-- Filter and Sort Controls -->
+        <div class="filter-sort-section">
+            <label for="categoryFilter">Category:
+                <select id="categoryFilter">
+                    <option value="all">All</option>
+                    <option value="normal">Normal</option>
+                    <option value="special">Special</option>
+                    <option value="premium">Premium</option>
+                    <option value="custom">Customize</option>
+                </select>
+            </label>
+            <label for="priceFilter">Price:
+                <select id="priceFilter">
+                    <option value="all">All</option>
+                    <option value="lt500">Below ₹500</option>
+                    <option value="500to1000">₹500 - ₹1000</option>
+                    <option value="gt1000">Above ₹1000</option>
+                </select>
+            </label>
+            <label for="sortSelect">Sort:
+                <select id="sortSelect">
+                    <option value="default">Default</option>
+                    <option value="priceLow">Price: Low to High</option>
+                    <option value="priceHigh">Price: High to Low</option>
+                    <option value="popularity">Popularity</option>
+                </select>
+            </label>
+        </div>
+
+        <!-- Normal Chocolates Section -->
+        <div class="section" id="normalSection">
+            <h2 class="section-heading">Normal Chocolates</h2>
+            <div class="chocolate-container">
+                <div class="chocolate-item" data-price="109" data-category="normal" data-popularity="4">
+                    <img src="fcn.jpg" alt="Normal Chocolate 1">
+                    <p>Classic Milk Chocolate - ₹109</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="129" data-category="normal" data-popularity="3">
+                    <img src="fcn.webp" alt="Normal Chocolate 2">
+                    <p>Dark Chocolate Bar - ₹129</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="149" data-category="normal" data-popularity="5">
+                    <img src="fcn1.jpg" alt="Normal Chocolate 3">
+                    <p>Hazelnut Crunch - ₹149</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="179" data-category="normal" data-popularity="2">
+                    <img src="fcn2.webp" alt="Normal Chocolate 4">
+                    <p>Almond Chocolate - ₹179</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Chocolates Section -->
+        <div class="section" id="specialSection">
+            <h2 class="section-heading">Special Chocolates</h2>
+            <div class="chocolate-container">
+                <div class="chocolate-item" data-price="519" data-category="special" data-popularity="4">
+                    <span class="special-badge">Special</span>
+                    <img src="fcs1.jpg" alt="Special Chocolate 1">
+                    <p>Truffle Collection - ₹519</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="630" data-category="special" data-popularity="5">
+                    <span class="special-badge">Special</span>
+                    <img src="fcs2.jpg" alt="Special Chocolate 2">
+                    <p>Sea Salt Caramel - ₹630</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="539" data-category="special" data-popularity="3">
+                    <span class="special-badge">Special</span>
+                    <img src="fcs3.jpg" alt="Special Chocolate 3">
+                    <p>Raspberry Infusion - ₹539</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="579" data-category="special" data-popularity="4">
+                    <span class="special-badge">Special</span>
+                    <img src="fcs4.webp" alt="Special Chocolate 4">
+                    <p>Orange Zest Delight - ₹579</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Chocolates Section -->
+        <div class="section" id="premiumSection">
+            <h2 class="section-heading">Premium Chocolates</h2>
+            <div class="chocolate-container">
+                <div class="chocolate-item" data-price="999" data-category="premium" data-popularity="5">
+                    <span class="special-badge">Premium</span>
+                    <img src="fcp1.jpg" alt="Premium Chocolate 1">
+                    <p>Gold Leaf Chocolate - ₹999</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="900" data-category="premium" data-popularity="4">
+                    <span class="special-badge">Premium</span>
+                    <img src="fcp2.webp" alt="Premium Chocolate 2">
+                    <p>Belgian Collection - ₹900</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="950" data-category="premium" data-popularity="3">
+                    <span class="special-badge">Premium</span>
+                    <img src="fcp3.avif" alt="Premium Chocolate 3">
+                    <p>Vintage Reserve - ₹950</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="1000" data-category="premium" data-popularity="5">
+                    <span class="special-badge">Premium</span>
+                    <img src="fcp4.jpg" alt="Premium Chocolate 4">
+                    <p>Signature Blend - ₹1000</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customize Your Chocolates Section -->
+        <div class="section" id="customSection">
+            <h2 class="section-heading">Customize Your Chocolates</h2>
+            <div class="chocolate-container">
+                <div class="chocolate-item" data-price="1499" data-category="custom" data-popularity="4">
+                    <span class="special-badge">Custom</span>
+                    <img src="fcc1.webp" alt="Customized Chocolate 1">
+                    <p>Personalized Message Box - ₹1499</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="1599" data-category="custom" data-popularity="5">
+                    <span class="special-badge">Custom</span>
+                    <img src="fcc2.webp" alt="Customized Chocolate 2">
+                    <p>Photo Chocolate - ₹1599</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="1299" data-category="custom" data-popularity="3">
+                    <span class="special-badge">Custom</span>
+                    <img src="fcc3.webp" alt="Customized Chocolate 3">
+                    <p>Flavor Mix Box - ₹1299</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+                <div class="chocolate-item" data-price="1999" data-category="custom" data-popularity="4">
+                    <span class="special-badge">Custom</span>
+                    <img src="fcc4.jpg" alt="Customized Chocolate 4">
+                    <p>Ultimate Gift Hamper - ₹1999</p>
+                    <button onclick="addToCart(this)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addToCart(button) {
+            const itemContainer = button.parentElement;
+            const item = {
+                name: itemContainer.querySelector('p').textContent,
+                price: parseInt(itemContainer.getAttribute('data-price')),
+                imageSrc: itemContainer.querySelector('img').src,
+                category: itemContainer.getAttribute('data-category')
+            };
+    
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            
+            // Add animation to button
+            button.textContent = 'Added!';
+            button.style.backgroundColor = '#4CAF50';
+            setTimeout(() => {
+                button.textContent = 'Add to Cart';
+                button.style.backgroundColor = '';
+            }, 1500);
+        }
+    
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartBadge = document.querySelector('.cart-badge');
+            if (cartBadge) {
+                cartBadge.textContent = cart.length;
+                cartBadge.style.display = cart.length > 0 ? 'block' : 'none';
+            }
+        }
+
+        // Enhanced Filter and Sort Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = {
+                normal: document.getElementById('normalSection'),
+                special: document.getElementById('specialSection'),
+                premium: document.getElementById('premiumSection'),
+                custom: document.getElementById('customSection')
+            };
+            
+            const allSections = Object.values(sections);
+            const categoryFilter = document.getElementById('categoryFilter');
+            const priceFilter = document.getElementById('priceFilter');
+            const sortSelect = document.getElementById('sortSelect');
+            const allItems = Array.from(document.querySelectorAll('.chocolate-item'));
+
+            function getItemPrice(item) {
+                return parseInt(item.getAttribute('data-price'));
+            }
+
+            function filterAndSort() {
+                // Category filter
+                const catVal = categoryFilter.value;
+                allSections.forEach(sec => {
+                    sec.style.display = (catVal === 'all' || sec.id.startsWith(catVal)) ? '' : 'none';
+                });
+                
+                // Price filter
+                const priceVal = priceFilter.value;
+                allItems.forEach(item => {
+                    const price = getItemPrice(item);
+                    let show = true;
+                    
+                    if (priceVal === 'lt500') show = price < 500;
+                    else if (priceVal === '500to1000') show = price >= 500 && price <= 1000;
+                    else if (priceVal === 'gt1000') show = price > 1000;
+                    
+                    item.style.display = (priceVal === 'all' || show) ? '' : 'none';
+                });
+                
+                // Sort
+                const sortVal = sortSelect.value;
+                allSections.forEach(section => {
+                    const container = section.querySelector('.chocolate-container');
+                    if (!container) return;
+                    
+                    const items = Array.from(container.children);
+                    
+                    items.sort((a, b) => {
+                        const aPrice = getItemPrice(a);
+                        const bPrice = getItemPrice(b);
+                        
+                        if (sortVal === 'priceLow') return aPrice - bPrice;
+                        if (sortVal === 'priceHigh') return bPrice - aPrice;
+                        if (sortVal === 'popularity') {
+                            return parseInt(b.getAttribute('data-popularity')) - parseInt(a.getAttribute('data-popularity'));
+                        }
+                        return 0;
+                    });
+                    
+                    // Re-append sorted items
+                    items.forEach(item => container.appendChild(item));
+                });
+                
+                // Animate the changes
+                document.querySelectorAll('.chocolate-item[style=""]').forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        item.style.transition = 'all 0.5s ease';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 50);
+                    }, index * 50);
+                });
+            }
+            
+            // Event listeners
+            categoryFilter.addEventListener('change', filterAndSort);
+            priceFilter.addEventListener('change', filterAndSort);
+            sortSelect.addEventListener('change', filterAndSort);
+            
+            // Initialize
+            updateCartBadge();
+            filterAndSort();
+        });
+
+        // Add cart badge to the cart link
+        window.onload = function() {
+            const cartLink = document.querySelector('.cart-link');
+            const badge = document.createElement('span');
+            badge.className = 'cart-badge';
+            badge.style.display = 'none';
+            badge.style.position = 'absolute';
+            badge.style.top = '-5px';
+            badge.style.right = '-5px';
+            badge.style.backgroundColor = 'red';
+            badge.style.color = 'white';
+            badge.style.borderRadius = '50%';
+            badge.style.width = '20px';
+            badge.style.height = '20px';
+            badge.style.display = 'flex';
+            badge.style.alignItems = 'center';
+            badge.style.justifyContent = 'center';
+            badge.style.fontSize = '12px';
+            cartLink.style.position = 'relative';
+            cartLink.appendChild(badge);
+            updateCartBadge();
+        };
+    </script>
+</body>
+</html>

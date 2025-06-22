@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion Chocolates & LUX Arts | Member Portal</title>
+    <style>
+        :root {
+            --chocolate-dark: #3a1f0a;
+            --chocolate-medium: #6b4423;
+            --chocolate-light: #d4a373;
+            --gold-accent: #d4af37;
+            --lux-purple: #5d3fd3;
+            --lux-blue: #34ace0;
+            --cream: #f8f4e9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: url('https://images.unsplash.com/photo-1511381939415-e44015466834') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                          rgba(58, 31, 10, 0.8) 0%, 
+                          rgba(93, 63, 211, 0.7) 100%);
+            z-index: -1;
+        }
+
+        .main-heading {
+            color: var(--cream);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .container {
+            width: 1000px;
+            max-width: 100%;
+            height: 650px;
+            display: flex;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Forms */
+        .form-container {
+            width: 60%;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container {
+            background: rgba(248, 244, 233, 0.9);
+        }
+
+        .register-container {
+            background: rgba(212, 163, 115, 0.9);
+            transform: translateX(100%);
+            position: absolute;
+            right: 0;
+            height: 100%;
+            width: 60%;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .container.active .login-container {
+            transform: translateX(-100%);
+        }
+
+        .container.active .register-container {
+            transform: translateX(0);
+            right: auto;
+            left: 0;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--chocolate-dark);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gold-accent);
+        }
+
+        .register-container .form-title {
+            color: var(--cream);
+        }
+
+        .register-container .form-title::after {
+            background: var(--lux-purple);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--chocolate-medium);
+            transition: all 0.3s;
+        }
+
+        .register-container .form-group label {
+            color: var(--cream);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-bottom: 2px solid var(--chocolate-light);
+            background: transparent;
+            font-size: 16px;
+            transition: all 0.3s;
+            color: var(--chocolate-dark);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-bottom-color: var(--gold-accent);
+        }
+
+        .register-container .form-control {
+            border-bottom-color: rgba(255, 255, 255, 0.5);
+            color: var(--cream);
+        }
+
+        .register-container .form-control:focus {
+            border-bottom-color: var(--lux-purple);
+        }
+
+        .form-control::placeholder {
+            color: rgba(58, 31, 10, 0.5);
+        }
+
+        .register-container .form-control::placeholder {
+            color: rgba(248, 244, 233, 0.7);
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto 0;
+        }
+
+        .btn-primary {
+            background: var(--chocolate-dark);
+            color: var(--cream);
+            box-shadow: 0 4px 15px rgba(58, 31, 10, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--chocolate-medium);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(58, 31, 10, 0.4);
+        }
+
+        .register-container .btn-primary {
+            background: var(--lux-purple);
+            box-shadow: 0 4px 15px rgba(93, 63, 211, 0.3);
+        }
+
+        .register-container .btn-primary:hover {
+            background: var(--lux-blue);
+            box-shadow: 0 6px 20px rgba(93, 63, 211, 0.4);
+        }
+
+        .toggle-form {
+            margin-top: 20px;
+            text-align: center;
+            color: var(--chocolate-medium);
+            width: 100%;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--gold-accent);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+
+        .toggle-btn:hover {
+            color: var(--chocolate-dark);
+        }
+
+        .register-container .toggle-btn {
+            color: var(--lux-purple);
+        }
+
+        .register-container .toggle-btn:hover {
+            color: var(--cream);
+        }
+
+        /* Gallery Side */
+        .gallery-side {
+            width: 40%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .brand-display {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .brand-card {
+            width: 100%;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .brand-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .brand-card:hover img {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: white;
+            text-align: center;
+            width: 100%;
+        }
+
+        .brand-tagline {
+            font-size: 1rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                width: 900px;
+                height: 600px;
+            }
+            
+            .main-heading {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                width: 700px;
+                height: 500px;
+            }
+            
+            .form-container {
+                padding: 40px;
+            }
+            
+            .brand-card img {
+                height: 150px;
+            }
+            
+            .brand-name {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .container {
+                flex-direction: column;
+                height: auto;
+                width: 100%;
+                max-width: 500px;
+            }
+            
+            .form-container, .gallery-side {
+                width: 100%;
+            }
+            
+            .form-container {
+                padding: 40px 30px;
+            }
+            
+            .register-container {
+                width: 100%;
+            }
+            
+            .gallery-side {
+                height: 300px;
+                flex-direction: row;
+                padding: 20px;
+                align-items: center;
+            }
+            
+            .brand-display {
+                flex-direction: row;
+                justify-content: space-around;
+                gap: 20px;
+            }
+            
+            .brand-card {
+                max-width: 150px;
+            }
+            
+            .brand-card img {
+                height: 100px;
+            }
+            
+            .brand-name {
+                font-size: 1.2rem;
+            }
+            
+            .brand-tagline {
+                font-size: 0.7rem;
+            }
+
+            .container.active .brand-display {
+                transform: none;
+            }
+            
+            .form-title {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-heading {
+                font-size: 1.5rem;
+            }
+            
+            .form-title {
+                font-size: 1.8rem;
+            }
+            
+            .brand-name {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main-heading">FUSION CHOCOLATES AND LUEX ARTS</h1>
+    
+    <div class="container" id="container">
+        <!-- Login Form -->
+        <div class="form-container login-container">
+            <h2 class="form-title">Welcome Back</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="Your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            <div class="toggle-form">
+                <span>New to our world? </span>
+                <button class="toggle-btn" id="show-register">Create an account</button>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-container register-container">
+            <h2 class="form-title">Join Us</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="Your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="Create password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <div class="toggle-form">
+                <span>Already a member? </span>
+                <button class="toggle-btn" id="show-login">Sign in</button>
+            </div>
+        </div>
+
+        <!-- Brand Display Side -->
+        <div class="gallery-side">
+            <div class="brand-display">
+                <div class="brand-card">
+                    <img src="fcl.png" alt="Fusion Chocolates">
+                    <div class="brand-info">
+                        <div class="brand-name">Fusion Chocolates</div>
+                        <div class="brand-tagline">Handcrafted Perfection</div>
+                    </div>
+                </div>
+                <div class="brand-card">
+                    <img src="LUEX LOGO.jpg" alt="LUX Arts">
+                    <div class="brand-info">
+                        <div class="brand-name">LUX Arts</div>
+                        <div class="brand-tagline">Bringing Luxury to Creativity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        
+        showRegister.addEventListener('click', () => {
+            container.classList.add('active');
+        });
+        
+        showLogin.addEventListener('click', () => {
+            container.classList.remove('active');
+        });
+        
+        // Form submission
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real application, you would validate credentials here
+            // For demo purposes, we'll redirect after a short delay
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 500);
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real application, you would register the user here
+            alert('Registration successful! Please sign in.');
+            container.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

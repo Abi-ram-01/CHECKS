@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUSSION Works</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .center-heading {
+            position: absolute;
+            top: 5%;
+            font-size: 4em;
+            font-weight: bold;
+            animation: headingColorChange 8s infinite alternate;
+            color: #6b5b95;
+        }
+        @keyframes headingColorChange {
+            0% {
+                color: #ff6f61;
+            }
+            25% {
+                color: #6b5b95;
+            }
+            50% {
+                color: #88b04b;
+            }
+            75% {
+                color: #f7cac9;
+            }
+            100% {
+                color: #92a8d1;
+            }
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        .split {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+@media (max-width: 768px) {
+  /* Tablet styles */
+  .navbar {
+    width: 120px;
+    font-size: 14px;
+    padding-top: 10px;
+  }
+  #shop,
+  .about-section,
+  .contact-section,
+  #feedback {
+    margin-left: 130px;
+    padding: 40px 10px;
+  }
+  .products-container,
+  .about-container {
+    flex-direction: column;
+    gap: 15px;
+    max-width: 100%;
+  }
+  .product,
+  .about-box {
+    width: 90vw;
+    min-width: unset;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile styles */
+  .navbar {
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 5px 0;
+    background: rgba(0,0,0,0.8);
+  }
+  .navbar a {
+    margin: 5px;
+    font-size: 12px;
+  }
+  #shop,
+  .about-section,
+  .contact-section,
+  #feedback {
+    margin-left: 0;
+    padding: 20px 5px;
+  }
+  .products-container,
+  .about-container {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+  }
+  .product,
+  .about-box {
+    width: 98vw;
+    min-width: unset;
+    max-width: 100%;
+    padding: 8px;
+  }
+}
+
+        .left {
+            background-color: #e6f7e6; /* Default green */
+        }
+        .right {
+            background-color: #ffffff; /* Default white */
+        }
+        .left:hover {
+            background-color: #ffffff; /* Change to white */
+        }
+        .left:hover ~ .right {
+            background-color: #e6f7e6; /* Change to green */
+        }
+        .right:hover {
+            background-color: #ffffff; /* Change to white */
+        }
+        .right:hover ~ .left {
+            background-color: #e6f7e6; /* Change to green */
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #333; /* Dark text */
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+            color: #555; /* Medium gray */
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #ff6f61; /* Button color */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn:hover {
+            background-color: #ff8566; /* Hover effect */
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="center-heading">  FUSSION&LUEX←--</div>
+    
+    <div class="container">
+      
+        <div class="split left">
+            <h1>Fussion Chocolates</h1>
+            <p>Taste the magic of creativity and flavor in every bite.</p>
+            <a href="FUSSION ITEMS.html" class="btn">Enter Fussion Chocolates</a>
+        </div>
+        <div class="split right">
+            <h1>Luex Arts</h1>
+            <p>Explore the world of vibrant artistry and innovative designs.</p>
+            <a href="luex collection.HTML" class="btn">Enter Luex Arts </a>
+        </div>
+    </body>
+</html>
